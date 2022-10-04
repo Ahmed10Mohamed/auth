@@ -13,6 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+
+
+
+
+Route::group(['namespace' => 'App\Http\Controllers\User', 'middleware'=>'admin', 'prefix' => 'user'], function() {
+
+    Route::get('/', 'DashboardController@index')->name('user.index');
+
+
+  });
+
+  Route::group(['namespace' => 'App\Http\Controllers'], function () {
+    Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('login');
+    Route::post('/login', 'AdminAuth\LoginController@login');
+  });
